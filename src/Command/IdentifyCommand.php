@@ -4,6 +4,7 @@ namespace Ontic\Yaes\Command;
 
 use Ontic\Yaes\Identifiers\IIdentifier;
 use Ontic\Yaes\Model\Target;
+use Ontic\Yaes\SoftwarePackages\ISoftwarePackage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,16 +13,16 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class IdentifyCommand extends Command
 {
-    /** @var string */
-    private $basePath;
+    /** @var ISoftwarePackage[] */
+    private $softwarePackages;
 
     /**
-     * @param string $basePath
+     * @param ISoftwarePackage[] $packages
      */
-    public function __construct($basePath)
+    public function __construct($packages)
     {
         parent::__construct();
-        $this->basePath = $basePath;
+        $this->softwarePackages = $packages;
     }
 
     protected function configure()
@@ -42,65 +43,16 @@ class IdentifyCommand extends Command
             $input->getOption('base-path')
         );
 
-        foreach($this->getIdentifiers() as $identifier)
+        foreach($this->softwarePackages as $package)
         {
-            $software = $identifier->identify($target);
+            $software = $package->getIdentifier()->identify($target);
             if($software !== IIdentifier::UNKNOWN)
             {
-                switch($software)
-                {
-                    case IIdentifier::MAGENTO:
-                        echo 'Magento' . PHP_EOL;
-                        return;
-
-                    case IIdentifier::PRESTASHOP:
-                        echo 'Prestashop' . PHP_EOL;
-                        return;
-
-                    case IIdentifier::VIRTUEMART:
-                        echo 'VirtueMart' . PHP_EOL;
-                        return;
-
-                    case IIdentifier::OSCOMMERCE:
-                        echo 'osCommerce' . PHP_EOL;
-                        return;
-
-                    case IIdentifier::WOOCOMMERCE:
-                        echo 'WooCommerce' . PHP_EOL;
-                        return;
-                }
+                echo $package->getName() . PHP_EOL;
+                return;
             }
         }
 
         echo 'Unknown' . PHP_EOL;
-    }
-
-    /**
-     * @return IIdentifier[]
-     */
-    private function getIdentifiers()
-    {
-        $identifiers = [];
-
-        $identifiersDir = $this->basePath . '/src/Identifiers';
-
-        foreach(scandir($identifiersDir) as $entry)
-        {
-            $fullPath = $identifiersDir . '/' . $entry;
-
-            if(!is_file($fullPath))
-            {
-                continue;
-            }
-
-            $className = pathinfo($entry)['filename'];
-            $fullyQualifiedClassName = 'Ontic\Yaes\Identifiers\\' . $className;
-            if(class_exists($fullyQualifiedClassName))
-            {
-                $identifiers[] = new $fullyQualifiedClassName();
-            }
-        }
-
-        return $identifiers;
     }
 }

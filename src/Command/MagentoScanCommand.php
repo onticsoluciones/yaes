@@ -13,18 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class MagentoScanCommand extends Command
 {
-    /** @var string */
-    private $basePath;
-
-    /**
-     * @param string $basePath
-     */
-    public function __construct($basePath)
-    {
-        parent::__construct();
-        $this->basePath = $basePath;
-    }
-
     protected function configure()
     {
         $this
