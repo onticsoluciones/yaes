@@ -8,7 +8,6 @@ use Ontic\Yaes\SoftwarePackages\ISoftwarePackage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PrestashopScanCommand extends Command
@@ -30,18 +29,12 @@ class PrestashopScanCommand extends Command
         $this
             ->setName('prestashop:scan')
             ->setDescription('Scan a Prestashop site for known vulnerabilities')
-            ->addArgument('host', InputArgument::REQUIRED)
-            ->addOption('base-path', null, InputOption::VALUE_OPTIONAL, '', '')
-            ->addOption('port', null, InputOption::VALUE_OPTIONAL, '', 80);
+            ->addArgument('url', InputArgument::REQUIRED);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $target = new Target(
-            $input->getArgument('host'),
-            $input->getOption('port'),
-            $input->getOption('base-path')
-        );
+        $target = Target::createFromString($input->getArgument('url'));
 
         $scanners = $this->package->getScanners();
 

@@ -4,12 +4,10 @@ namespace Ontic\Yaes\Command;
 
 use Ontic\Yaes\Model\Target;
 use Ontic\Yaes\Scanners\IScanner;
-use Ontic\Yaes\Scanners\ScannerLoader;
 use Ontic\Yaes\SoftwarePackages\ISoftwarePackage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ScanCommand extends Command
@@ -32,18 +30,12 @@ class ScanCommand extends Command
         $this
             ->setName('scan')
             ->setDescription('Identify and scan a site for known vulnerabilities')
-            ->addArgument('host', InputArgument::REQUIRED)
-            ->addOption('base-path', null, InputOption::VALUE_OPTIONAL, '', '')
-            ->addOption('port', null, InputOption::VALUE_OPTIONAL, '', 80);
+            ->addArgument('url', InputArgument::REQUIRED);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $target = new Target(
-            $input->getArgument('host'),
-            $input->getOption('port'),
-            $input->getOption('base-path')
-        );
+        $target = Target::createFromString($input->getArgument('url'));
 
         // Detect the software package
         $softwarePackage = null;
@@ -63,7 +55,7 @@ class ScanCommand extends Command
             return;
         }
 
-        echo 'Detected software package: ' . $softwarePackage->getName() . PHP_EOL;
+        echo 'Detected software: ' . $softwarePackage->getName() . PHP_EOL;
 
         // Scan for vulnerabilities
         $scanners = $softwarePackage->getScanners();

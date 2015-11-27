@@ -1,5 +1,6 @@
 <?php
 
+use Ontic\Yaes\Model\Target;
 use Ontic\Yaes\Scanners\IScanner;
 use Ontic\Yaes\SoftwarePackages\ISoftwarePackage;
 
@@ -13,8 +14,7 @@ $softwarePackages = $loader->findSoftwarePackages(
 
 if(!isset($_GET['action']))
 {
-    header('', true, 400);
-    die;
+    dieWithStatus(400, 'Bad Request');
 }
 
 switch($_GET['action'])
@@ -26,7 +26,7 @@ switch($_GET['action'])
             dieWithStatus(400, 'Bad Request');
         }
 
-        $target = getTargetFromUrl($_GET['url']);
+        $target = Target::createFromString($_GET['url']);
 
         $response = [];
         $software = identifySoftware($target);
@@ -67,7 +67,7 @@ switch($_GET['action'])
             dieWithStatus(404, 'Not Found');
         }
 
-        $target = getTargetFromUrl($_GET['url']);
+        $target = Target::createFromString($_GET['url']);
         $resultCode = $scanner->getTargetStatus($target);
 
         header('Content-Type: application/json', true, 200);
@@ -129,26 +129,6 @@ function identifySoftware(\Ontic\Yaes\Model\Target $target)
     }
 
     return null;
-}
-
-/**
- * @param string $url
- * @return \Ontic\Yaes\Model\Target
- */
-function getTargetFromUrl($url)
-{
-    if(substr($url, 0, 4) !== 'http')
-    {
-        $url = 'http://' . $url;
-    }
-
-    $urlComponents = parse_url($url);
-    $host = $urlComponents['host'];
-    $port = strlen(@$urlComponents['port']) > 0 ? $urlComponents['port'] : 80;
-    $path = strlen(@$urlComponents['path']) > 0 ? $urlComponents['path'] : '';
-    $path = trim($path, '/');
-
-    return new \Ontic\Yaes\Model\Target($host, $port, $path);
 }
 
 function dieWithStatus($code, $text)
