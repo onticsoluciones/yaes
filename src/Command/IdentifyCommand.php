@@ -2,7 +2,6 @@
 
 namespace Ontic\Yaes\Command;
 
-use Ontic\Yaes\Identifiers\IIdentifier;
 use Ontic\Yaes\Model\Target;
 use Ontic\Yaes\SoftwarePackages\ISoftwarePackage;
 use Symfony\Component\Console\Command\Command;
@@ -45,8 +44,8 @@ class IdentifyCommand extends Command
 
         foreach($this->softwarePackages as $package)
         {
-            $software = $package->getIdentifier()->identify($target);
-            if($software !== IIdentifier::UNKNOWN)
+            $package = $package->getIdentifier()->identify($target);
+            if($package !== false)
             {
                 echo $package->getName() . PHP_EOL;
                 return;

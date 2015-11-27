@@ -4,7 +4,7 @@ namespace Ontic\Yaes\Command;
 
 use Ontic\Yaes\Model\Target;
 use Ontic\Yaes\Scanners\IScanner;
-use Ontic\Yaes\Scanners\ScannerLoader;
+use Ontic\Yaes\SoftwarePackages\ISoftwarePackage;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -13,6 +13,18 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class PrestashopScanCommand extends Command
 {
+    /** @var ISoftwarePackage */
+    private $package;
+
+    /**
+     * @param ISoftwarePackage $package
+     */
+    public function __construct(ISoftwarePackage $package)
+    {
+        parent::__construct();
+        $this->package = $package;
+    }
+
     protected function configure()
     {
         $this
@@ -31,7 +43,7 @@ class PrestashopScanCommand extends Command
             $input->getOption('base-path')
         );
 
-        $scanners = (new ScannerLoader())->getScanners('Prestashop');
+        $scanners = $this->package->getScanners();
 
         foreach($scanners as $scanner)
         {

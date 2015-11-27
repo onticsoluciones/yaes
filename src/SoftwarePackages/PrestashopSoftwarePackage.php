@@ -31,7 +31,7 @@ class PrestashopSoftwarePackage implements ISoftwarePackage
      */
     function getIdentifier()
     {
-        return new PrestashopIdentifier();
+        return new PrestashopIdentifier($this);
     }
 
     /**
@@ -48,7 +48,7 @@ class PrestashopSoftwarePackage implements ISoftwarePackage
     function getCommands()
     {
         return [
-            new PrestashopScanCommand()
+            new PrestashopScanCommand($this)
         ];
     }
 }

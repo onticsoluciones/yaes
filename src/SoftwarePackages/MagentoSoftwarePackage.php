@@ -31,7 +31,7 @@ class MagentoSoftwarePackage implements ISoftwarePackage
      */
     function getIdentifier()
     {
-        return new MagentoIdentifier();
+        return new MagentoIdentifier($this);
     }
 
     /**
@@ -48,7 +48,7 @@ class MagentoSoftwarePackage implements ISoftwarePackage
     function getCommands()
     {
         return [
-            new MagentoScanCommand()
+            new MagentoScanCommand($this)
         ];
     }
 }

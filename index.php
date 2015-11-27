@@ -17,4 +17,5 @@ foreach($softwarePackages as $package)
 }
 
 $application->add(new \Ontic\Yaes\Command\IdentifyCommand($softwarePackages));
+$application->add(new \Ontic\Yaes\Command\ScanCommand($softwarePackages));
 $application->run();

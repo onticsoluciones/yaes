@@ -4,9 +4,21 @@ namespace Ontic\Yaes\Identifiers;
 
 use DOMDocument;
 use Ontic\Yaes\Model\Target;
+use Ontic\Yaes\SoftwarePackages\ISoftwarePackage;
 
 class MagentoIdentifier implements IIdentifier
 {
+    /** @var ISoftwarePackage */
+    private $package;
+
+    /**
+     * @param ISoftwarePackage $package
+     */
+    public function __construct(ISoftwarePackage $package)
+    {
+        $this->package = $package;
+    }
+
     /**
      * @param Target $target
      * @return int|null
@@ -20,7 +32,7 @@ class MagentoIdentifier implements IIdentifier
 
         if(($responseBody = @file_get_contents($url)) === false)
         {
-            return IIdentifier::UNKNOWN;
+            return null;
         }
 
         $htmlDocument = new DOMDocument();
@@ -30,10 +42,10 @@ class MagentoIdentifier implements IIdentifier
         {
             if(strstr($script->getAttribute('src'), 'mage/cookies.js') !== false)
             {
-                return IIdentifier::MAGENTO;
+                return $this->package;
             }
         }
 
-        return IIdentifier::UNKNOWN;
+        return false;
     }
 }
