@@ -40,7 +40,7 @@ class Supee5344Scanner implements IScanner
             return IScanner::STATUS_UNKNOWN;
         }
 
-        if(imagecreatefromstring($responseBody) === false)
+        if(@imagecreatefromstring($responseBody) === false)
         {
             return IScanner::STATUS_SAFE;
         }
