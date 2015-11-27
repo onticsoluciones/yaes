@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MagentoScanCommand extends Command
+class PrestashopScanCommand extends Command
 {
     /** @var string */
     private $basePath;
@@ -28,8 +28,8 @@ class MagentoScanCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('magento:scan')
-            ->setDescription('Scan a Magento site for known vulnerabilities')
+            ->setName('prestashop:scan')
+            ->setDescription('Scan a Prestashop site for known vulnerabilities')
             ->addArgument('host', InputArgument::REQUIRED)
             ->addOption('base-path', null, InputOption::VALUE_OPTIONAL, '', '')
             ->addOption('port', null, InputOption::VALUE_OPTIONAL, '', 80);
@@ -43,7 +43,7 @@ class MagentoScanCommand extends Command
             $input->getOption('base-path')
         );
 
-        $scanners = (new ScannerLoader())->getScanners('Magento');
+        $scanners = (new ScannerLoader())->getScanners('Prestashop');
 
         foreach($scanners as $scanner)
         {
