@@ -4,8 +4,17 @@ use Symfony\Component\Console\Application;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+$loader = new \Ontic\Yaes\Loaders\SoftwarePackagesLoader();
+$softwarePackages = $loader->findSoftwarePackages(
+    __DIR__ . '/src/SoftwarePackages',
+    'Ontic\Yaes\SoftwarePackages'
+);
+
 $application = new Application();
-$application->add(new \Ontic\Yaes\Command\MagentoScanCommand(__DIR__));
-$application->add(new \Ontic\Yaes\Command\PrestashopScanCommand(__DIR__));
-$application->add(new \Ontic\Yaes\Command\IdentifyCommand(__DIR__));
+foreach($softwarePackages as $package)
+{
+    $application->addCommands($package->getCommands());
+}
+
+$application->add(new \Ontic\Yaes\Command\IdentifyCommand($softwarePackages));
 $application->run();
