@@ -38,7 +38,7 @@ class IdentifyCommand extends Command
         foreach($this->softwarePackages as $package)
         {
             $package = $package->getIdentifier()->identify($target);
-            if($package !== false)
+            if($package !== null)
             {
                 echo $package->getName() . PHP_EOL;
                 return;

@@ -46,6 +46,6 @@ class MagentoIdentifier implements IIdentifier
             }
         }
 
-        return false;
+        return null;
     }
 }

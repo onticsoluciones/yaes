@@ -42,7 +42,7 @@ class ScanCommand extends Command
         foreach($this->softwarePackages as $package)
         {
             $package = $package->getIdentifier()->identify($target);
-            if($package !== false)
+            if($package !== null)
             {
                 $softwarePackage = $package;
                 break;

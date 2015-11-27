@@ -66,4 +66,16 @@ class Target
     {
         return $this->basePath;
     }
+
+    /**
+     * @param string $relativeUrl
+     * @return string
+     */
+    public function getUrl($relativeUrl)
+    {
+        return sprintf('http://%s:%d/%s',
+            $this->getHost(),
+            $this->getPort(),
+            $this->getBasePath()) . $relativeUrl;
+    }
 }
