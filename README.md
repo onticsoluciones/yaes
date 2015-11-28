@@ -24,7 +24,7 @@ At that point, the CLI interface is available by running
 The web interface resides inside the directory "frontend". Perhaps the easiest way to try it is by using the integrated PHP webserver
 
 ```bash
-php -S localhost:9000 -t frontend
+php -S localhost:9000 -t .
 ```
 
-The web interface should be available at http://localhost:9000
+The web interface should be available at http://localhost:9000/frontend
