@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetasploitV5>
+<generated time="2015-11-28 01:32:17 UTC" user="rip" project="default" product="framework"/>
+<hosts>
+  <host>
+    <id>1</id>
+    <created-at>2015-11-28 01:15:14 UTC</created-at>
+    <address>10.10.10.10</address>
+    <mac/>
+    <comm></comm>
+    <name>PErico</name>
+    <state>alive</state>
+    <os-name>Magento</os-name>
+    <os-flavor/>
+    <os-sp/>
+    <os-lang/>
+    <arch/>
+    <workspace-id>1</workspace-id>
+    <updated-at>2015-11-28 01:15:14 UTC</updated-at>
+    <purpose>device</purpose>
+    <info/>
+    <comments />
+    <scope/>
+    <virtual-host/>
+    <note-count>0</note-count>
+    <vuln-count>0</vuln-count>
+    <service-count>1</service-count>
+    <host-detail-count>0</host-detail-count>
+    <exploit-attempt-count>0</exploit-attempt-count>
+    <cred-count>0</cred-count>
+    <detected-arch/>
+    <host_details>
+    </host_details>
+    <exploit_attempts>
+    </exploit_attempts>
+    <services>
+      <service>
+      <id>1</id>
+      <host-id>1</host-id>
+      <created-at>2015-11-28 01:15:14 UTC</created-at>
+      <port>809</port>
+      <proto>tcp</proto>
+      <state>open</state>
+      <name></name>
+      <updated-at>2015-11-28 01:15:14 UTC</updated-at>
+      <info></info>
+      </service>
+    </services>
+    <notes>
+    </notes>
+    <vulns>
+      <vuln>
+      <id>1</id>
+      <host-id>1</host-id>
+      <service-id/>
+      <created-at>2015-11-28 01:45:30 UTC</created-at>
+      <name>YAES vulnerabilidad 111</name>
+      <updated-at>2015-11-28 01:45:30 UTC</updated-at>
+      <info />
+      <exploited-at/>
+      <vuln-detail-count>0</vuln-detail-count>
+      <vuln-attempt-count>0</vuln-attempt-count>
+      <origin-id/>
+      <origin-type/>
+        <notes>
+        </notes>
+        <refs>
+          <ref>nombre scanner</ref>
+        </refs>
+            <vuln_details>
+            </vuln_details>
+            <vuln_attempts>
+            </vuln_attempts>
+	</vuln>
+    </vulns>
+  </host>
+</hosts>
+</MetasploitV5>
