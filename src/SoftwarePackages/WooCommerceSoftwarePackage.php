@@ -5,6 +5,7 @@ namespace Ontic\Yaes\SoftwarePackages;
 use Ontic\Yaes\Identifiers\IIdentifier;
 use Ontic\Yaes\Identifiers\WooCommerceIdentifier;
 use Ontic\Yaes\Scanners\IScanner;
+use Ontic\Yaes\Scanners\WooCommerce\OutdatedVersionScanner;
 use Symfony\Component\Console\Command\Command;
 
 class WooCommerceSoftwarePackage implements ISoftwarePackage
@@ -38,7 +39,9 @@ class WooCommerceSoftwarePackage implements ISoftwarePackage
      */
     function getScanners()
     {
-        return [];
+        return [
+            new OutdatedVersionScanner()
+        ];
     }
 
     /**
