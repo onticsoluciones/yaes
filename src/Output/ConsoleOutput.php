@@ -8,7 +8,7 @@ use Ontic\Yaes\SoftwarePackages\ISoftwarePackage;
 
 class ConsoleOutput implements IOutput
 {
-    function writeSoftwareDetecionResult(Target $target, ISoftwarePackage $softwarePackage = null)
+    function writeSoftwareDetecionResult(Target $target, ISoftwarePackage $softwarePackage)
     {
         echo 'Detected software: ' . $softwarePackage->getName() . PHP_EOL;
     }

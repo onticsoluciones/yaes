@@ -8,7 +8,7 @@ use Ontic\Yaes\SoftwarePackages\ISoftwarePackage;
 
 interface IOutput
 {
-    function writeSoftwareDetecionResult(Target $target, ISoftwarePackage $softwarePackage = null);
+    function writeSoftwareDetecionResult(Target $target, ISoftwarePackage $softwarePackage);
 
     function writeScanResult(Target $target, IScanner $scanner, $result);
 

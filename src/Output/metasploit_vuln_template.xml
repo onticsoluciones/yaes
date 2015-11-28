@@ -4,7 +4,7 @@
     <service-id/>
     <created-at>{{ current_date }}</created-at>
     <name>{{ software_name }} {{ scanner_name }}</name>
-    <updated-at>{{ current_date }}</updated-at>
+    <updated-at>{{ current_date }}</updated-at>
     <info/>
     <exploited-at/>
     <vuln-detail-count>0</vuln-detail-count>
