@@ -25,7 +25,7 @@ class OsCommerceIdentifier implements IIdentifier
      */
     function identify(Target $target)
     {
-        $request = curl_init($target->getUrl('product_info.php'));
+        $request = curl_init($target->getUrl('conditions.php'));
         curl_setopt($request, CURLOPT_FOLLOWLOCATION, false);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
         curl_exec($request);
