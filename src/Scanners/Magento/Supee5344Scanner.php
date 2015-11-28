@@ -2,7 +2,6 @@
 
 namespace Ontic\Yaes\Scanners\Magento;
 
-use DOMDocument;
 use Ontic\Yaes\Scanners\IScanner;
 use Ontic\Yaes\Model\Target;
 
