@@ -20,4 +20,9 @@ interface IScanner
      * @return string
      */
     function getName();
+
+    /**
+     * @return string
+     */
+    function getDescription();
 }

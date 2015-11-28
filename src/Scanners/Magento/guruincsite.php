@@ -38,4 +38,12 @@ class Guruincsite implements IScanner
     {
         return 'Guruincsite';
     }
+
+    /**
+     * @return string
+     */
+    function getDescription()
+    {
+        return null;
+    }
 }

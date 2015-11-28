@@ -64,4 +64,12 @@ class OutdatedVersionScanner implements IScanner
         }
         return (int) substr($value, strpos($value, ' ', 8) + 1, 3);
      }
+
+    /**
+     * @return string
+     */
+    function getDescription()
+    {
+        return null;
+    }
 }
