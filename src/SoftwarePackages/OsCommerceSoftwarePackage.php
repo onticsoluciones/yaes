@@ -2,20 +2,19 @@
 
 namespace Ontic\Yaes\SoftwarePackages;
 
-use Ontic\Yaes\Command\MagentoScanCommand;
 use Ontic\Yaes\Identifiers\IIdentifier;
-use Ontic\Yaes\Identifiers\MagentoIdentifier;
+use Ontic\Yaes\Identifiers\OsCommerceIdentifier;
 use Ontic\Yaes\Scanners\IScanner;
-use Ontic\Yaes\Scanners\ScannerLoader;
+use Symfony\Component\Console\Command\Command;
 
-class MagentoSoftwarePackage implements ISoftwarePackage
+class OsCommerceSoftwarePackage implements ISoftwarePackage
 {
     /**
      * @return string
      */
     function getCode()
     {
-        return 'magento';
+        return 'oscommerce';
     }
 
     /**
@@ -23,7 +22,7 @@ class MagentoSoftwarePackage implements ISoftwarePackage
      */
     function getName()
     {
-        return 'Magento';
+        return 'osCommerce';
     }
 
     /**
@@ -31,7 +30,7 @@ class MagentoSoftwarePackage implements ISoftwarePackage
      */
     function getIdentifier()
     {
-        return new MagentoIdentifier($this);
+        return new OsCommerceIdentifier($this);
     }
 
     /**
@@ -39,16 +38,14 @@ class MagentoSoftwarePackage implements ISoftwarePackage
      */
     function getScanners()
     {
-        return (new ScannerLoader())->getScanners('Magento');
+        return [];
     }
 
     /**
-     * @return mixed
+     * @return Command[]
      */
     function getCommands()
     {
-        return [
-            new MagentoScanCommand($this)
-        ];
+        return [];
     }
 }

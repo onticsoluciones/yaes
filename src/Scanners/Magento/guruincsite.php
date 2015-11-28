@@ -13,20 +13,22 @@ class Guruincsite implements IScanner
      */
     function getTargetStatus(Target $target)
     {
-        $url = sprintf('http://%s:%d/index.php',
+        $url = sprintf('http://%s:%d/%sindex.php',
             $target->getHost(),
-            $target->getPort());
+            $target->getPort(),
+            $target->getBasePath());
 
-        if(($responseBody = file_get_contents($url)) === false)
+        if (($responseBody = @file_get_contents($url)) === false)
         {
             return IScanner::STATUS_UNKNOWN;
         }
 
-        if(strstr($responseBody,"LCWEHH(XHFER1){XHFER1=XHFER1"))
-            {
-                return IScanner::STATUS_VULNERABLE;
-            }
-        else return IScanner::STATUS_SAFE;
+        if (strstr($responseBody, "LCWEHH(XHFER1){XHFER1=XHFER1"))
+        {
+            return IScanner::STATUS_VULNERABLE;
+        }
+
+        return IScanner::STATUS_SAFE;
     }
 
     /**

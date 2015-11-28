@@ -10,25 +10,26 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PrestashopScanCommand extends Command
+class ScanCommand extends Command
 {
-    /** @var ISoftwarePackage */
-    private $package;
+    /** @var ISoftwarePackage[] */
+    private $softwarePackages;
 
     /**
-     * @param ISoftwarePackage $package
+     * ScanCommand constructor.
+     * @param \Ontic\Yaes\SoftwarePackages\ISoftwarePackage[] $softwarePackages
      */
-    public function __construct(ISoftwarePackage $package)
+    public function __construct(array $softwarePackages)
     {
         parent::__construct();
-        $this->package = $package;
+        $this->softwarePackages = $softwarePackages;
     }
 
     protected function configure()
     {
         $this
-            ->setName('prestashop:scan')
-            ->setDescription('Scan a Prestashop site for known vulnerabilities')
+            ->setName('scan')
+            ->setDescription('Identify and scan a site for known vulnerabilities')
             ->addArgument('url', InputArgument::REQUIRED);
     }
 
@@ -36,7 +37,28 @@ class PrestashopScanCommand extends Command
     {
         $target = Target::createFromString($input->getArgument('url'));
 
-        $scanners = $this->package->getScanners();
+        // Detect the software package
+        $softwarePackage = null;
+        foreach($this->softwarePackages as $package)
+        {
+            $package = $package->getIdentifier()->identify($target);
+            if($package !== null)
+            {
+                $softwarePackage = $package;
+                break;
+            }
+        }
+
+        if($softwarePackage === null)
+        {
+            echo 'Unable to detect the software package' . PHP_EOL;
+            return;
+        }
+
+        echo 'Detected software: ' . $softwarePackage->getName() . PHP_EOL;
+
+        // Scan for vulnerabilities
+        $scanners = $softwarePackage->getScanners();
 
         foreach($scanners as $scanner)
         {

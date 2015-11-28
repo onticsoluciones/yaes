@@ -14,7 +14,6 @@ class Supee5344Scanner implements IScanner
      */
     function getTargetStatus(Target $target)
     {
-
         $url = sprintf('http://%s:%d/%sindex.php/admin/Cms_Wysiwyg/directive/index/',
             $target->getHost(),
             $target->getPort(),

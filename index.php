@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 use Symfony\Component\Console\Application;
@@ -17,4 +18,5 @@ foreach($softwarePackages as $package)
 }
 
 $application->add(new \Ontic\Yaes\Command\IdentifyCommand($softwarePackages));
+$application->add(new \Ontic\Yaes\Command\ScanCommand($softwarePackages));
 $application->run();

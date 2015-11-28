@@ -4,9 +4,21 @@ namespace Ontic\Yaes\Identifiers;
 
 use DOMDocument;
 use Ontic\Yaes\Model\Target;
+use Ontic\Yaes\SoftwarePackages\ISoftwarePackage;
 
 class PrestashopIdentifier implements IIdentifier
 {
+    /** @var ISoftwarePackage */
+    private $package;
+
+    /**
+     * @param ISoftwarePackage $package
+     */
+    public function __construct(ISoftwarePackage $package)
+    {
+        $this->package = $package;
+    }
+
     /**
      * @param Target $target
      * @return int|null
@@ -20,7 +32,7 @@ class PrestashopIdentifier implements IIdentifier
 
         if(($responseBody = @file_get_contents($url)) === false)
         {
-            return IIdentifier::UNKNOWN;
+            return null;
         }
 
         $htmlDocument = new DOMDocument();
@@ -30,7 +42,7 @@ class PrestashopIdentifier implements IIdentifier
         {
             if(strstr($meta->getAttribute('href'), 'blockcart.css') !== false)
             {
-                return IIdentifier::PRESTASHOP;
+                return $this->package;
             }
         }
 
@@ -38,10 +50,10 @@ class PrestashopIdentifier implements IIdentifier
         {
             if($meta->getAttribute('name') === 'generator' && strstr($meta->getAttribute('content'), 'PrestaShop') !== false)
             {
-                return IIdentifier::PRESTASHOP;
+                return $this->package;
             }
         }
 
-        return IIdentifier::UNKNOWN;
+        return null;
     }
 }
