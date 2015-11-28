@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<MetasploitV5>
+    <generated time="{{ current_date }}" user="yaes" project="yaes" product="yaes"/>
+    <hosts>
+        <host>
+            <id>1</id>
+            <created-at>{{ current_date }}</created-at>
+            <address>{{ target_ip }}</address>
+            <mac/>
+            <comm></comm>
+            <name>{{ target_url }}</name>
+            <state>alive</state>
+            <os-name>{{ software_name }}</os-name>
+            <os-flavor/>
+            <os-sp/>
+            <os-lang/>
+            <arch/>
+            <workspace-id>1</workspace-id>
+            <updated-at>{{ current_date }}</updated-at>
+            <purpose>device</purpose>
+            <info/>
+            <comments/>
+            <scope/>
+            <virtual-host/>
+            <note-count>0</note-count>
+            <vuln-count>0</vuln-count>
+            <service-count>1</service-count>
+            <host-detail-count>0</host-detail-count>
+            <exploit-attempt-count>0</exploit-attempt-count>
+            <cred-count>0</cred-count>
+            <detected-arch/>
+            <host_details>
+            </host_details>
+            <exploit_attempts>
+            </exploit_attempts>
+            <services>
+                <service>
+                    <id>1</id>
+                    <host-id>1</host-id>
+                    <created-at>{{ current_date }}</created-at>
+                    <port>{{ target_port }}</port>
+                    <proto>tcp</proto>
+                    <state>open</state>
+                    <name></name>
+                    <updated-at>{{ current_date }}</updated-at>
+                    <info></info>
+                </service>
+            </services>
+            <notes>
+            </notes>
+            <vulns>
+                {{ vulns }}
+            </vulns>
+        </host>
+    </hosts>
+</MetasploitV5>
