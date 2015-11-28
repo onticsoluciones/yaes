@@ -3,6 +3,10 @@ Yet Another Ecommerce Scanner
 
 # Installation instructions
 
+Required dependencies
+
+php5 interpreter, curl, and php5 extension for curl
+
 After cloning the repository, download composer
 
 ```bash

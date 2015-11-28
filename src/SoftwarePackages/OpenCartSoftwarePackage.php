@@ -5,6 +5,7 @@ namespace Ontic\Yaes\SoftwarePackages;
 use Ontic\Yaes\Identifiers\IIdentifier;
 use Ontic\Yaes\Identifiers\OpenCartIdentifier;
 use Ontic\Yaes\Scanners\IScanner;
+use Ontic\Yaes\Scanners\ScannerLoader;
 use Symfony\Component\Console\Command\Command;
 
 class OpenCartSoftwarePackage implements ISoftwarePackage
@@ -38,7 +39,7 @@ class OpenCartSoftwarePackage implements ISoftwarePackage
      */
     function getScanners()
     {
-        return [];
+        return (new ScannerLoader())->getScanners('OpenCart');
     }
 
     /**
