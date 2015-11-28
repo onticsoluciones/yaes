@@ -34,7 +34,8 @@ class ScanCommand extends Command
             ->setName('scan')
             ->setDescription('Identify and scan a site for known vulnerabilities')
             ->addArgument('url', InputArgument::REQUIRED)
-            ->addOption('output', '', InputOption::VALUE_OPTIONAL, '', 'stdout');
+            ->addOption('output', '', InputOption::VALUE_OPTIONAL, '', 'stdout')
+            ->addOption('software', '', InputArgument::OPTIONAL, 'Treat the target as if running the specified software', 'auto');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -42,21 +43,10 @@ class ScanCommand extends Command
         $output = $this->getOutputType($input->getOption('output'));
         $target = Target::createFromString($input->getArgument('url'));
 
-        // Detect the software package
-        $softwarePackage = null;
-        foreach($this->softwarePackages as $package)
-        {
-            $package = $package->getIdentifier()->identify($target);
-            if($package !== null)
-            {
-                $softwarePackage = $package;
-                break;
-            }
-        }
-
+        $softwarePackage = $this->getSoftware($target, $input->getOption('software'));
         if($softwarePackage === null)
         {
-            echo 'Unable to detect the software package' . PHP_EOL;
+            echo 'Unable to identify the software running on the target' . PHP_EOL;
             return;
         }
 
@@ -89,5 +79,31 @@ class ScanCommand extends Command
             default:
                 return new ConsoleOutput();
         }
+    }
+    private function getSoftware(Target $target, $type)
+    {
+        if($type !== 'auto')
+        {
+            // Use the specified software
+            foreach($this->softwarePackages as $package)
+            {
+                if($package->getCode() === $type)
+                {
+                    return $package;
+                }
+            }
+            return null;
+        }
+
+        // Try to autodetect the software running on the target
+        foreach($this->softwarePackages as $package)
+        {
+            $package = $package->getIdentifier()->identify($target);
+            if($package !== null)
+            {
+                return $package;
+            }
+        }
+        return null;
     }
 }
