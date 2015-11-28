@@ -1,0 +1,23 @@
+<vuln>
+    <id>{{ vuln_counter }}</id>
+    <host-id>1</host-id>
+    <service-id/>
+    <created-at>{{ current_date }}</created-at>
+    <name>{{ software_name }} {{ scanner_name }}</name>
+    <updated-at>{{ current_date }}</updated-at>
+    <info/>
+    <exploited-at/>
+    <vuln-detail-count>0</vuln-detail-count>
+    <vuln-attempt-count>0</vuln-attempt-count>
+    <origin-id/>
+    <origin-type/>
+    <notes>
+    </notes>
+    <refs>
+        <ref>{{ scanner_name }}</ref>
+    </refs>
+    <vuln_details>
+    </vuln_details>
+    <vuln_attempts>
+    </vuln_attempts>
+</vuln>

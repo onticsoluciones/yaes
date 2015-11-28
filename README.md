@@ -1,6 +1,8 @@
 # yaes
 Yet Another Ecommerce Scanner
 
+A CLI and web tool to scan e-commerce sites for known vulnerabilities.
+
 # Installation instructions
 
 Required dependencies

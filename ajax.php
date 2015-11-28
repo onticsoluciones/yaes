@@ -38,6 +38,7 @@ switch($_GET['action'])
         {
             $response['software'] = $software->getCode();
             $response['scanners'] = [];
+            $response['ip_address'] = $target->getIpAddress();
             foreach($software->getScanners() as $scanner)
             {
                 $response['scanners'][] = $scanner->getName();

@@ -5,6 +5,8 @@ use Symfony\Component\Console\Application;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+date_default_timezone_set('Europe/Madrid');
+
 $loader = new \Ontic\Yaes\Loaders\SoftwarePackagesLoader();
 $softwarePackages = $loader->findSoftwarePackages(
     __DIR__ . '/src/SoftwarePackages',
