@@ -2,7 +2,6 @@
 
 namespace Ontic\Yaes\Identifiers;
 
-use DOMDocument;
 use Ontic\Yaes\Model\Target;
 use Ontic\Yaes\SoftwarePackages\ISoftwarePackage;
 
@@ -25,27 +24,16 @@ class MagentoIdentifier implements IIdentifier
      */
     function identify(Target $target)
     {
-        $url = sprintf('http://%s:%d/%s',
-            $target->getHost(),
-            $target->getPort(),
-            $target->getBasePath());
-
-        if(($responseBody = @file_get_contents($url)) === false)
+        $request = curl_init($target->getUrl('customer/account/login/'));
+        curl_setopt($request, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($request);
+        $responseCode = curl_getinfo($request, CURLINFO_HTTP_CODE);
+        if($responseCode !== 200)
         {
             return null;
         }
 
-        $htmlDocument = new DOMDocument();
-        @$htmlDocument->loadHTML($responseBody);
-
-        foreach($htmlDocument->getElementsByTagName('script') as $script)
-        {
-            if(strstr($script->getAttribute('src'), 'mage/cookies.js') !== false)
-            {
-                return $this->package;
-            }
-        }
-
-        return null;
+        return $this->package;
     }
 }
