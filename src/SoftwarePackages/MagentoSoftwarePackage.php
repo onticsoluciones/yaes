@@ -47,8 +47,6 @@ class MagentoSoftwarePackage implements ISoftwarePackage
      */
     function getCommands()
     {
-        return [
-            new MagentoScanCommand($this)
-        ];
+        return [];
     }
 }
