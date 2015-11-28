@@ -1,47 +1,99 @@
-var YaesDetectedSoftware = React.createClass({
+var YaesScanner = React.createClass({
 
     getInitialState: function() {
         return {
-            statuses: new Array(this.props.scanners.length)
+            status: -2
         }
     },
 
-    componentDidMount: function() {
-        var self = this;
-        for(var i=0; i<this.props.scanners.length; i++) {
-            var url = "/ajax.php?action=scan&url=" + encodeURIComponent(this.props.url) + "&software=" + this.props.software + "&scanner=" + this.props.scanners[i];
-            (function() {
-                var j = i;
-                $.get(url, function(response) {
-                    var statuses = self.state.statuses;
-                    statuses[j] = response.status;
-                    self.setState({
-                        statuses: statuses
-                    });
-                });
-            })();
-        }
+    componentDidMount: function () {
+        this.reload()
+    },
+
+    reload: function() {
+
+        this.setState({
+            status: -2
+        });
+
+        $.get(this.props.url, function (response) {
+            this.setState({
+                status: response.status
+            });
+        }.bind(this));
 
     },
 
-    render: function() {
+    render: function () {
+
+        return (
+            <div>
+                <li>
+                    {this.props.scanner}
+                    -
+                    { (this.state.status === -2) ? "Checking" : "" }
+                    { (this.state.status === -1) ? "Unknown" : "" }
+                    { (this.state.status ===  1) ? "Safe" : "" }
+                    { (this.state.status ===  2) ? "Vulnerable" : "" }
+                </li>
+                <input type="button" value="Reload" onClick={this.reload} />
+            </div>
+
+        );
+    }
+
+});
+
+var YaesDetectedSoftware = React.createClass({
+
+    getInitialState: function() {
+
+        return {
+            software: null,
+            scanners: null
+        }
+    },
+
+    componentWillMount: function() {
+        this.componentWillReceiveProps(this.props);
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+
+        var url = "/ajax.php?action=identify&url=" + encodeURIComponent(nextProps.url);
+        this.setState(this.getInitialState());
+
+        $.get(url, function (response) {
+            this.setState({
+                software: response.software,
+                scanners: response.scanners
+            });
+        }.bind(this));
+
+    },
+
+    render: function () {
+
+        if(this.props.url === null) {
+            return <div />;
+        }
+
+        if(this.state.software === null) {
+            return <div>Loading...</div>
+        }
 
         var liItems = [];
 
-        for (var i=0; i<this.props.scanners.length; i++) {
+        for (var i = 0; i < this.state.scanners.length; i++) {
+            var url = "/ajax.php?action=scan&url=" + encodeURIComponent(this.props.url) + "&software=" + this.state.software + "&scanner=" + this.state.scanners[i];
             liItems.push(
-                <li>
-                    {this.props.scanners[i]}
-                    -
-                    { (this.state.statuses[i] === -1) ? "Unknown" : "" }
-                    { (this.state.statuses[i] ===  1) ? "Safe" : "" }
-                    { (this.state.statuses[i] ===  2) ? "Vulnerable" : "" }
-                </li>);
+                <YaesScanner url={url} scanner={this.state.scanners[i]} />
+            );
         }
 
         return (
             <div>
-                <div>Detected software: {this.props.software}</div>
+                <div>Detected software: {this.state.software}</div>
                 <ul>{liItems}</ul>
             </div>
         );
@@ -50,38 +102,34 @@ var YaesDetectedSoftware = React.createClass({
 
 var Yaes = React.createClass({
 
-    getInitialState: function() {
-        return {url: ''};
+    getInitialState: function () {
+        return {
+            url: null,
+            selected_url: null
+        };
     },
 
-    onChange: function(e) {
-        this.setState({url: e.target.value});
+    onChange: function (e) {
+        this.setState({
+            url: e.target.value,
+            selected_url: null
+        });
     },
 
-    handleClick: function() {
-        var self = this;
-        var url = "/ajax.php?action=identify&url=" + encodeURIComponent(this.state.url);
-        $.get(url, function(response) {
-            self.setState({
-                showResults: true,
-                software: response.software,
-                scanners: response.scanners
-            });
-            console.log(response);
-        })
+    handleSubmit: function (e) {
+        e.preventDefault();
+        this.setState({
+            selected_url: this.state.url
+        });
     },
 
-    render: function() {
+    render: function () {
         return (
             <div>
-                <form onsubmit="{this.handleSubmit}">
-                    <input onChange={this.onChange} value={this.state.url} placeholder="Enter the website URL" />
-                    <input type="button" value="Scan" onClick={this.handleClick} />
-                    { this.state.showResults ? <YaesDetectedSoftware
-                        software={this.state.software}
-                        scanners={this.state.scanners}
-                        url={this.state.url}
-                    /> : null }
+                <form onSubmit={this.handleSubmit}>
+                    <input onChange={this.onChange} value={this.state.url} placeholder="Enter the website URL"/>
+                    <input type="submit" value="Scan" />
+                    { (this.state.selected_url !== null) ? <YaesDetectedSoftware url={this.state.selected_url} /> : '' }
                 </form>
             </div>
         );
