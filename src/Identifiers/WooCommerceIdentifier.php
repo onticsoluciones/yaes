@@ -24,6 +24,16 @@ class WooCommerceIdentifier implements IIdentifier
      */
     function identify(Target $target)
     {
+        $request = curl_init($target->getUrl('wp-login.php'));
+        curl_setopt($request, CURLOPT_FOLLOWLOCATION, false);
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($request);
+        $responseCode = curl_getinfo($request, CURLINFO_HTTP_CODE);
+        if($responseCode !== 200)
+        {
+            return null;
+        }
+
         // WooCommerce sites should response with a status 403 to
         // /wp-content/plugins/woocommerces
         $request = curl_init($target->getUrl('wp-content/plugins/woocommerce/'));

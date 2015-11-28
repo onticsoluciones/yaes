@@ -25,6 +25,16 @@ class OsCommerceIdentifier implements IIdentifier
      */
     function identify(Target $target)
     {
+        $request = curl_init($target->getUrl('product_info.php'));
+        curl_setopt($request, CURLOPT_FOLLOWLOCATION, false);
+        curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
+        curl_exec($request);
+        $responseCode = curl_getinfo($request, CURLINFO_HTTP_CODE);
+        if($responseCode !== 200)
+        {
+            return null;
+        }
+
         // osCommerce with respond with a 403 to a request for
         // includes/classes/osc_template.php
         $request = curl_init($target->getUrl('includes/classes/osc_template.php'));
