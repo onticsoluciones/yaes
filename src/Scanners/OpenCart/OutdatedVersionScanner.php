@@ -13,17 +13,17 @@ class OutdatedVersionScanner implements IScanner
      */
     function getTargetStatus(Target $target)
     {
-        $url_ok = $target->getUrl('/admin/controller/fraud/ip.php');
-	$url_ko = $target->getUrl('/admin/controller/module/amazon_button.php');
+	$url_ok = $target->getUrl('admin/controller/fraud/ip.php');
+	$status_ok = $this->getStatus($url_ok);
 
-        $responseBody_ok = @file_get_contents($url_ok);
-	$responseBody_ko = @file_get_contents($url_ko);
+	$url_ko = $target->getUrl('admin/controller/module/amazon_button.php');
+	$status_ko = $this->getStatus($url_ko);
 
-        if($responseBody_ok !== false && $responseBody_ko === false)
+        if(($status_ok == 200 || $status_ok == 500) && $status_ko == 404)
         {
             return IScanner::STATUS_SAFE; // 2.1.0.1 (20151128)
         }
-	elseif($responseBody_ok === false && $responseBody_ko !== false)
+	elseif($status_ok == 404 && $status_ko == 200)
 	{
             return IScanner::STATUS_VULNERABLE;
         }
@@ -40,4 +40,28 @@ class OutdatedVersionScanner implements IScanner
     {
         return 'OutdatedVersion';
     }
+
+    /**
+     * Obtiene el último status code (tras redirects) al acceder a un fichero
+     *
+     * @return int final status code
+     */
+    function getStatus($url)
+    {
+	$headers = @get_headers($url, true);
+        $value = NULL;
+        if ($headers === false)
+	{
+	    return $headers;
+        }
+        foreach ($headers as $k => $v)
+	{
+	    if (!is_int($k))
+	    {
+		continue;
+            }
+            $value = $v;
+        }
+        return (int) substr($value, strpos($value, ' ', 8) + 1, 3);
+     }
 }
