@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YAES\n"
 "POT-Creation-Date: 2015-11-29 02:12+0100\n"
-"PO-Revision-Date: 2015-11-29 02:20+0100\n"
+"PO-Revision-Date: 2015-11-29 03:30+0100\n"
 "Last-Translator: Germán Sánchez <yercito@gmail.com>\n"
 "Language-Team: Ontic <info@ontic.es>\n"
 "MIME-Version: 1.0\n"
@@ -15,4 +15,22 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 
 msgid "Unable to identify the software running on the target"
-msgstr "Tocate un pie"
+msgstr "No ha sido posible identificar el software corriento en el objetivo"
+
+msgid "Identify and scan a site for known vulnerabilities"
+msgstr "Identifica y escanea un sitio en busca de vulnerabilidades conocidas"
+
+msgid "Treat the target as if running the specified software"
+msgstr "Considera que el objetivo está corriendo el software especificado"
+
+msgid "Try to guess the software running behind a site"
+msgstr "Intenta suponer el software que se ejecuta en un sitio web"
+
+msgid "Safe"
+msgstr "Seguro"
+
+msgid "Unknown"
+msgstr "Desconocido"
+
+msgid "Detected software: "
+msgstr "Software detectado: "

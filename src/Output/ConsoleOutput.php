@@ -10,7 +10,7 @@ class ConsoleOutput implements IOutput
 {
     function writeSoftwareDetecionResult(Target $target, ISoftwarePackage $softwarePackage)
     {
-        echo 'Detected software: ' . $softwarePackage->getName() . PHP_EOL;
+        echo _('Detected software: ') . $softwarePackage->getName() . PHP_EOL;
     }
 
     function writeScanResult(Target $target, IScanner $scanner, $result)
@@ -18,7 +18,7 @@ class ConsoleOutput implements IOutput
         switch($result)
         {
             case IScanner::STATUS_SAFE:
-                $status = 'Safe';
+                $status = _('Safe');
                 break;
 
             case IScanner::STATUS_VULNERABLE:
@@ -27,7 +27,7 @@ class ConsoleOutput implements IOutput
 
             case IScanner::STATUS_UNKNOWN:
             default:
-                $status = 'Unknown';
+                $status = _('Unknown');
         }
 
         echo $scanner->getName() . ' => ' . $status . PHP_EOL;

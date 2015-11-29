@@ -32,10 +32,10 @@ class ScanCommand extends Command
     {
         $this
             ->setName('scan')
-            ->setDescription('Identify and scan a site for known vulnerabilities')
+            ->setDescription(_('Identify and scan a site for known vulnerabilities'))
             ->addArgument('url', InputArgument::REQUIRED)
             ->addOption('output', '', InputOption::VALUE_OPTIONAL, '', 'stdout')
-            ->addOption('software', '', InputArgument::OPTIONAL, 'Treat the target as if running the specified software', 'auto');
+            ->addOption('software', '', InputArgument::OPTIONAL, _('Treat the target as if running the specified software'), 'auto');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

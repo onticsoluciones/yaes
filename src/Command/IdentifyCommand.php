@@ -27,7 +27,7 @@ class IdentifyCommand extends Command
     {
         $this
             ->setName('identify')
-            ->setDescription('Try to guess the software running behind a site')
+            ->setDescription(_('Try to guess the software running behind a site'))
             ->addArgument('url', InputArgument::REQUIRED);
     }
 
@@ -45,6 +45,6 @@ class IdentifyCommand extends Command
             }
         }
 
-        echo 'Unknown' . PHP_EOL;
+        echo _('Unknown') . PHP_EOL;
     }
 }
