@@ -41,18 +41,18 @@ var YaesScanner = React.createClass({
     },
 
     componentDidMount: function () {
-        this.reload();
+        this.reloadWithProps(this.props, true);
     },
 
     componentWillReceiveProps: function(nextProps) {
-        this.reloadWithProps(nextProps)
+        this.reloadWithProps(nextProps, true)
     },
 
     reload: function() {
-        this.reloadWithProps(this.props);
+        this.reloadWithProps(this.props, false);
     },
 
-    reloadWithProps: function(props) {
+    reloadWithProps: function(props, updateCharts) {
 
         this.setState({
             status: -2
@@ -62,12 +62,13 @@ var YaesScanner = React.createClass({
             this.setState({
                 status: response.status
             });
-            window.finishedScanners++;
-            updateProgressInfo(window.finishedScanners / window.totalScanners * 100);
-            if(response.status != 1)
-            {
-                window.foundVulnerabilities++;
-                updateVulnInfo(window.foundVulnerabilities / window.totalScanners * 100);
+            if(updateCharts) {
+                window.finishedScanners++;
+                updateProgressInfo(window.finishedScanners / window.totalScanners * 100);
+                if (response.status != 1) {
+                    window.foundVulnerabilities++;
+                    updateVulnInfo(window.foundVulnerabilities / window.totalScanners * 100);
+                }
             }
         }.bind(this));
 
