@@ -51,3 +51,7 @@ ie: ln -s /home/user/bin/yaes /location/of/yaes.php
 nmap --script=http-yaes.nse URL [-p port]
 
 ie: nmap --script=http-yaes.nse demo.opencart.com -p 80
+
+# TODO
+
+Check out TODO list and missing features at: https://github.com/onticsoluciones/yaes/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement
