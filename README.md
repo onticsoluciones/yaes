@@ -7,7 +7,7 @@ A CLI and web tool to scan e-commerce sites for known vulnerabilities.
 
 Required dependencies
 
-php5 interpreter, curl, and php5 extension for curl
+php5 interpreter, curl, php5 extension for curl and php5 gd
 
 After cloning the repository, download composer
 
