@@ -46,7 +46,7 @@ class ScanCommand extends Command
         $softwarePackage = $this->getSoftware($target, $input->getOption('software'));
         if($softwarePackage === null)
         {
-            echo 'Unable to identify the software running on the target' . PHP_EOL;
+            echo _("Unable to identify the software running on the target") . PHP_EOL;
             return;
         }
 
