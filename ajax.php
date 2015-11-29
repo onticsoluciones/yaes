@@ -30,6 +30,8 @@ switch($_GET['action'])
 
         $response = [];
         $software = identifySoftware($target);
+        $response['ip_address'] = $target->getIpAddress();
+        $response['domain'] = $target->getHost();
         if($software === null)
         {
             $response['software'] = 'unknown';
@@ -38,7 +40,6 @@ switch($_GET['action'])
         {
             $response['software'] = $software->getCode();
             $response['scanners'] = [];
-            $response['ip_address'] = $target->getIpAddress();
             foreach($software->getScanners() as $scanner)
             {
                 $response['scanners'][] = $scanner->getName();
@@ -123,7 +124,7 @@ function identifySoftware(\Ontic\Yaes\Model\Target $target)
     foreach($softwarePackages as $package)
     {
         $package = $package->getIdentifier()->identify($target);
-        if($package !== false)
+        if($package !== null)
         {
             return $package;
         }

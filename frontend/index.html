@@ -1,28 +1,33 @@
 <!doctype html>
-<html><head>
+<html>
+<head>
     <meta charset="utf-8">
     <title>YAES - Ecommerce Vulnerabitie Scanner </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Carlos Alvarez - Alvarez.is">
 
+    <script src="libs/react/react.js"></script>
+    <script src="libs/react/react-dom.js"></script>
+    <script src="libs/babel/browser.js"></script>
+
     <!-- Le styles -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/main.css" rel="stylesheet">
     <link href="assets/css/font-style.css" rel="stylesheet">
     <link href="assets/css/flexslider.css" rel="stylesheet">
-    
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 
     <style type="text/css">
-      body {
-        padding-top: 60px;
-      }
+        body {
+            padding-top: 60px;
+        }
     </style>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <!-- Le fav and touch icons -->
@@ -32,252 +37,171 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
 
-  	<!-- Google Fonts call. Font Used Open Sans & Raleway -->
-	<link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
-  	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <!-- Google Fonts call. Font Used Open Sans & Raleway -->
+    <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
 
-<script type="text/javascript">
-$(document).ready(function () {
+    <link href="assets/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="styles.css" rel="stylesheet" />
 
-    $("#btn-blog-next").click(function () {
-      $('#blogCarousel').carousel('next')
-    });
-     $("#btn-blog-prev").click(function () {
-      $('#blogCarousel').carousel('prev')
-    });
+    <script type="text/javascript">
 
-     $("#btn-client-next").click(function () {
-      $('#clientCarousel').carousel('next')
-    });
-     $("#btn-client-prev").click(function () {
-      $('#clientCarousel').carousel('prev')
-    });
-    
-});
+        $(document).ready(function () {
 
- $(window).load(function(){
+            $("#btn-blog-next").click(function () {
+                $('#blogCarousel').carousel('next')
+            });
+            $("#btn-blog-prev").click(function () {
+                $('#blogCarousel').carousel('prev')
+            });
 
-    $('.flexslider').flexslider({
-        animation: "slide",
-        slideshow: true,
-        start: function(slider){
-          $('body').removeClass('loading');
-        }
-    });  
-});
+            $("#btn-client-next").click(function () {
+                $('#clientCarousel').carousel('next')
+            });
+            $("#btn-client-prev").click(function () {
+                $('#clientCarousel').carousel('prev')
+            });
 
-</script>
+        });
 
+        $(window).load(function () {
 
-    
-  </head>
-  <body>
-  
-  	<!-- NAVIGATION MENU -->
+            $('.flexslider').flexslider({
+                animation: "slide",
+                slideshow: true,
+                start: function (slider) {
+                    $('body').removeClass('loading');
+                }
+            });
+        });
 
-    <div class="navbar-nav navbar-inverse navbar-fixed-top">
-        <div class="container">
+    </script>
+
+</head>
+<body>
+
+<div id="content"></div>
+<script type="text/babel" src="index.jsx"></script>
+
+<!-- NAVIGATION MENU -->
+
+<div class="navbar-nav navbar-inverse navbar-fixed-top">
+    <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="yaes.html"><img src="assets/img/bug.png" alt="">  YAES Dashboard - Ecommerce vulnerability scanner</a>
-        </div>     
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="yaes.html"><img src="assets/img/logo30.png" alt=""> YAES Dashboard - Ecommerce
+                vulnerability scanner</a>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <!-- Scan button -->
+        <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+                <dtitle>URL to scan</dtitle>
+                <hr>
+                <div id="scanbox" class="cont"></div>
+            </div>
+        </div>
+
+        <!-- Scan time -->
+        <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+                <dtitle>Site health</dtitle>
+                <hr>
+                <div id="load"></div>
+                <h2>45%</h2>
+            </div>
+        </div>
+
+        <!-- Vulnerabilities found -->
+        <div class="col-sm-3 col-lg-3">
+            <div class="dash-unit">
+                <dtitle>Vulnerabilities found</dtitle>
+                <hr>
+                <div id="space"></div>
+                <h2>65%</h2>
+            </div>
+        </div>
+
+        <div class="col-sm-3 col-lg-3">
+            <div id="ip_address"></div>
+            <div id="software"></div>
+        </div>
+
+    </div><!-- /row -->
+
+
+    <!-- SECOND ROW OF BLOCKS -->
+    <div class="row" id="vulns"></div>
+
+
+    <!-- Export report  -->
+    <div class="half-unit">
+        <dtitle>Save Report</dtitle>
+        <hr>
+        <div class="cont">
+            <a href="#myModal" role="button" class="btnnew" data-toggle="modal">Export report</a>
         </div>
     </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Save report to PDF</h4>
+            </div>
+            <div class="modal-body">
+                Export to PDF
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+</div>
 
+
+</div> <!-- /container -->
+<div id="footerwrap">
+    <footer class="clearfix"></footer>
     <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <p><img src="assets/img/logo.png" alt=""></p>
 
-          <div class="row">
+                <p>Blocks Dashboard Theme - Crafted With Love - Copyright 2015</p>
+            </div>
 
-      <!-- Scan button -->     
-     <div class="col-sm-3 col-lg-3">
-				<div class="dash-unit">
-	      		<dtitle>URL to scan</dtitle>
-	      		<hr>
-	      		<div class="cont">
-                	<form action="#get-in-touch" method="POST" id="contact">
-                    	<input type="text" id="contactname" name="contactname" placeholder="http://">
-                        <div class="switch">
-					<input type="radio" class="switch-input" name="view" value="on" id="on" checked="">
-					<label for="on" class="switch-label switch-label-off">On</label>
-					<input type="radio" class="switch-input" name="view" value="off" id="off">
-					<label for="off" class="switch-label switch-label-on">Off</label>
-					<span class="switch-selection"></span>
-                    <p><grey>Autodetect software</grey></p>              
-				</div>
-                        <br><input type="submit" id="submit" name="submit" value="Scan">
-                    </form>
-				</div>
-				</div>
-	  
-	  </div>
-
-      <!-- Scan time -->
-        <div class="col-sm-3 col-lg-3">
-      		<div class="dash-unit">
-		  		<dtitle>Progress</dtitle>
-		  		<hr>
-	        	<div id="load"></div>
-	        	<h2>45%</h2>
-			</div>
-        </div>
-
-      <!-- Vulnerabilities found -->
-        <div class="col-sm-3 col-lg-3">
-      		<div class="dash-unit">
-		  		<dtitle>Vulnerabilities found</dtitle>
-		  		<hr>
-	        	<div id="space"></div>
-	        	<h2>65%</h2>
-			</div>
-        </div>
-
-		<div class="col-sm-3 col-lg-3">        
-		
-		<!-- IP Address of target -->
-			<div class="half-unit">
-	      		<dtitle>IP Address</dtitle>
-	      		<hr>
-		      		<div class="clockcenter">
-			      		<h2>195.65.78.123</h2>
-                        <h0>nospam1.softec-internet.com</h0>
-		      		</div>
-			</div>
-
-		<!-- System detected-->
-		    <div class="half-unit">
-	      		<dtitle>System detected</dtitle>
-		      		<div class="clockcenter">
-			      		<h1>Magento</h1>
-                        <p><img src="assets/img/magento.png" alt="">
-		      		</div>
-			</div>
-		</div>
-	</div><!-- /row -->
+        </div><!-- /row -->
+    </div><!-- /container -->
+</div><!-- /footerwrap -->
 
 
-	  <!-- SECOND ROW OF BLOCKS --> 
- 	  <div class="row">
-      <div class="col-sm-3 col-lg-3">
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="assets/js/bootstrap.js"></script>
+<script type="text/javascript" src="assets/js/lineandbars.js"></script>
+<script type="text/javascript" src="assets/js/dash-charts.js"></script>
 
-      <!-- Vulnerability found -->
-			<div class="half-unit">
-	      		<dtitle>Vulnerability #1</dtitle>
-	      		<hr>
-	      		<div class="cont">
-					<p><img src="assets/img/down.png" alt=""> <bold>Vulnerable</bold></p>
-				</div>
-			</div>	
-        </div>
+<!-- You can add more layouts if you want -->
+<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script
+<script src="assets/js/jquery.flexslider.js" type="text/javascript"></script>
 
-        <div class="col-sm-3 col-lg-3">
+</body>
+</html>
 
-             <!-- Vulnerability found -->
-			<div class="half-unit">
-	      		<dtitle>Vulnerability #2</dtitle>
-	      		<hr>
-	      		<div class="cont">
-					<p><img src="assets/img/exclamation.png" alt=""> <bold>Unknow</bold></p>
-				</div>
-			</div>	
-        </div>
-
-		<div class="col-sm-3 col-lg-3">
-
-             <!-- Vulnerability found -->
-			<div class="half-unit">
-	      		<dtitle>Vulnerability #3</dtitle>
-	      		<hr>
-	      		<div class="cont">
-					<p><img src="assets/img/up.png" alt=""> <bold>Safe</bold></p>
-				</div>
-			</div>	
-        </div>
-
-		<div class="col-sm-3 col-lg-3">
-
-      		<!-- Vulnerability found -->
-			<div class="half-unit">
-	      		<dtitle>Vulnerability #4</dtitle>
-	      		<hr>
-	      		<div class="cont">
-					<p><img src="assets/img/down.png" alt=""> <bold>Vulnerable</bold></p>
-				</div>
-			</div>	
-        </div>
-
-      </div><!-- /row -->
-        
-        
-        <!-- Export report  -->     
-				<div class="half-unit">
-	      		<dtitle>Save Report</dtitle>
-	      		<hr>
-		            <div class="cont">
-		                <a href="#myModal" role="button" class="btnnew" data-toggle="modal">Export report</a>
-		            </div>
-				</div>
-			</div>
-			<!-- Modal -->
-			  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			    <div class="modal-dialog">
-			      <div class="modal-content">
-			        <div class="modal-header">
-			          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			          <h4 class="modal-title">Save report to PDF</h4>
-			        </div>
-			        <div class="modal-body">
-			          Export to PDF
-			        </div>
-			        <div class="modal-footer">
-			          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			          <button type="button" class="btn btn-primary">Save </button>
-			        </div>
-			      </div><!-- /.modal-content -->
-			    </div><!-- /.modal-dialog -->
-			  </div><!-- /.modal -->
-      	</div>		
-
-           
-	</div> <!-- /container -->
-	<div id="footerwrap">
-      	<footer class="clearfix"></footer>
-      	<div class="container">
-      		<div class="row">
-      			<div class="col-sm-12 col-lg-12">
-      			<p><img src="assets/img/bug.png" alt=""></p>
-      			<p>Blocks Dashboard Theme - Crafted With Love - Copyright 2015</p>
-      			</div>
-
-      		</div><!-- /row -->
-      	</div><!-- /container -->		
-	</div><!-- /footerwrap -->
-
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
-	<script type="text/javascript" src="assets/js/lineandbars.js"></script>
-	<script type="text/javascript" src="assets/js/dash-charts.js"></script>
-	<script type="text/javascript" src="assets/js/gauge.js"></script>
-	
-	<!-- NOTY JAVASCRIPT -->
-	<script type="text/javascript" src="assets/js/noty/jquery.noty.js"></script>
-	<script type="text/javascript" src="assets/js/noty/layouts/top.js"></script>
-	<script type="text/javascript" src="assets/js/noty/layouts/topLeft.js"></script>
-	<script type="text/javascript" src="assets/js/noty/layouts/topRight.js"></script>
-	<script type="text/javascript" src="assets/js/noty/layouts/topCenter.js"></script>
-	
-	<!-- You can add more layouts if you want -->
-	<script type="text/javascript" src="assets/js/noty/themes/default.js"></script>
-    <!-- <script type="text/javascript" src="assets/js/dash-noty.js"></script> This is a Noty bubble when you init the theme-->
-	<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
-	<script src="assets/js/jquery.flexslider.js" type="text/javascript"></script>
-
-    <script type="text/javascript" src="assets/js/admin.js"></script>
-  
-</body></html>
