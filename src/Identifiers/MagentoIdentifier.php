@@ -27,9 +27,9 @@ class MagentoIdentifier implements IIdentifier
         $request = curl_init($target->getUrl('customer/account/login/'));
         curl_setopt($request, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
-        curl_exec($request);
+        $responseBody = curl_exec($request);
         $responseCode = curl_getinfo($request, CURLINFO_HTTP_CODE);
-        if($responseCode !== 200)
+        if($responseCode !== 200 || strpos($responseBody, 'customer/account/loginPost') === false)
         {
             return null;
         }

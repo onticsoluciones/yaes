@@ -27,7 +27,7 @@ class OpenCartIdentifier implements IIdentifier
         // This file should always exist on an OpenCart installation
         // /admin/language/english/localisation/weight_class.php
         $request = curl_init($target->getUrl('admin/language/english/localisation/weight_class.php'));
-        curl_setopt($request, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($request, CURLOPT_FOLLOWLOCATION, false);
         curl_setopt($request, CURLOPT_RETURNTRANSFER, true);
         curl_exec($request);
         $responseCode = curl_getinfo($request, CURLINFO_HTTP_CODE);
