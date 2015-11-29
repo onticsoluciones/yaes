@@ -13,9 +13,6 @@ $softwarePackages = $loader->findSoftwarePackages(
     'Ontic\Yaes\SoftwarePackages'
 );
 
-$locale = 'es_ES';
-putenv('LC_ALL=' . $locale);
-setlocale(LC_ALL, $locale.'.UTF-8');
 bindtextdomain("messages", "locale");
 textdomain("messages");
 
