@@ -17,12 +17,15 @@ var IpAddress = React.createClass({
 var Software = React.createClass({
 
     render: function() {
+
+        var imgUrl = "assets/img/" + this.props.software + ".png";
+
         return (
             <div className="half-unit">
                 <dtitle>Detected software</dtitle>
                 <div className="clockcenter">
                     <h1 style={{textTransform: "capitalize"}}>{this.props.software}</h1>
-                    <img src="assets/img/magento.png" alt="" />
+                    <img src={imgUrl} alt="" />
                 </div>
             </div>
         );
@@ -59,6 +62,13 @@ var YaesScanner = React.createClass({
             this.setState({
                 status: response.status
             });
+            window.finishedScanners++;
+            updateProgressInfo(window.finishedScanners / window.totalScanners * 100);
+            if(response.status != 1)
+            {
+                window.foundVulnerabilities++;
+                updateVulnInfo(window.foundVulnerabilities / window.totalScanners * 100);
+            }
         }.bind(this));
 
     },
@@ -102,6 +112,11 @@ var YaesScannerCollection = React.createClass({
     },
 
     render: function() {
+        window.totalScanners = this.props.scanners.length;
+        window.finishedScanners = 0;
+        window.foundVulnerabilities = 0;
+        updateProgressInfo(0);
+        updateVulnInfo(0);
         var items = [];
         var scanners = this.props.scanners;
         for(var i=0; i<scanners.length; i++) {
