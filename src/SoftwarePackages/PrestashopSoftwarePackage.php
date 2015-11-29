@@ -47,8 +47,6 @@ class PrestashopSoftwarePackage implements ISoftwarePackage
      */
     function getCommands()
     {
-        return [
-            new PrestashopScanCommand($this)
-        ];
+        return [];
     }
 }

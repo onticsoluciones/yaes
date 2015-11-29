@@ -52,4 +52,12 @@ class OutdatedVersionScanner implements IScanner
     {
         return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== false;
     }
+
+    /**
+     * @return string
+     */
+    function getDescription()
+    {
+        return null;
+    }
 }

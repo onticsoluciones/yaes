@@ -23,4 +23,12 @@ class OutdatedVersionScanner implements IScanner
     {
         return 'OutdatedVersion';
     }
+
+    /**
+     * @return string
+     */
+    function getDescription()
+    {
+        return null;
+    }
 }

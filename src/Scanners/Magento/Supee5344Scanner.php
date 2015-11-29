@@ -53,4 +53,12 @@ class Supee5344Scanner implements IScanner
     {
         return 'SUPEE-5344';
     }
+
+    /**
+     * @return string
+     */
+    function getDescription()
+    {
+        return null;
+    }
 }

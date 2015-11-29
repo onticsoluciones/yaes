@@ -25,6 +25,8 @@ class Target
     private $port;
     /** @var string */
     private $basePath;
+    /** @var string */
+    private $ipAddress;
 
     /**
      * @param string $host
@@ -41,6 +43,8 @@ class Target
         {
             $this->basePath .= '/';
         }
+
+        $this->ipAddress = gethostbyname($this->host);
     }
 
     /**
@@ -65,6 +69,14 @@ class Target
     public function getBasePath()
     {
         return $this->basePath;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIpAddress()
+    {
+        return $this->ipAddress;
     }
 
     /**
