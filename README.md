@@ -32,3 +32,20 @@ php -S localhost:9000 -t .
 ```
 
 The web interface should be available at http://localhost:9000/frontend
+
+
+# NMAP
+
+You can run YAES from nmap command line if you prefer:
+
+- Symbolic link yaes must be create in path first:
+
+ie: ln -s /home/user/bin/yaes /location/of/yaes.php
+
+- Copy yaes/nmap/http-yaes.nse to /usr/share/nmap/scripts/
+
+- To run:
+
+nmap --script=http-yaes.nse URL [-p port]
+
+ie: nmap --script=http-yaes.nse demo.opencart.com -p 80
