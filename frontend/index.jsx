@@ -91,8 +91,8 @@ var YaesScanner = React.createClass({
                                 <bold>
                                     { (this.state.status === -2) ? <i className="fa fa-spinner fa-spin fa-2x" /> : "" }
                                     { (this.state.status === -1) ? "Unknown" : "" }
-                                    { (this.state.status ===  1) ? "Safe" : "" }
-                                    { (this.state.status ===  2) ? "Vulnerable" : "" }
+                                    { (this.state.status ===  1) ? <span className="safe">Safe</span> : "" }
+                                    { (this.state.status ===  2) ? <span className="vulnerable">Vulnerable</span> : "" }
                                 </bold>
                             </p>
                         </div>

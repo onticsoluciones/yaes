@@ -2,3 +2,11 @@
     float: right;
     cursor: pointer;
 }
+
+.safe {
+    color: green;
+}
+
+.vulnerable {
+    color: red;
+}
