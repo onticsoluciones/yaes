@@ -4,10 +4,14 @@
 use Symfony\Component\Console\Application;
 require_once __DIR__ . '/vendor/autoload.php';
 
-if(is_connected())
-{
-	
+$URL = $argv[2];
+setlocale(LC_ALL, getenv('LANG'));
+bindtextdomain("messages", "locale");
+textdomain("messages");
 
+
+if(is_connected() && testURL($URL))
+{
 	date_default_timezone_set('Europe/Madrid');
 
 	$loader = new \Ontic\Yaes\Loaders\SoftwarePackagesLoader();
@@ -15,11 +19,6 @@ if(is_connected())
     	__DIR__ . '/src/SoftwarePackages',
     	'Ontic\Yaes\SoftwarePackages'
 	);
-
-	setlocale(LC_ALL, getenv('LANG'));
-	bindtextdomain("messages", "locale");
-	textdomain("messages");
-
 
 	$application = new Application();
 	foreach($softwarePackages as $package)
@@ -31,11 +30,6 @@ if(is_connected())
 	$application->add(new \Ontic\Yaes\Command\ScanCommand($softwarePackages));
 	$application->run();
 }
-else{
-	echo "Please connect to the internet and try again\n";
-}
-
-
 
 
 function is_connected()
@@ -47,8 +41,19 @@ function is_connected()
         fclose($connected);
     }else{
         $is_conn = false; //action in connection failure
+	echo _("Please connect to the internet and try again")."\n";
     }
     return $is_conn;
+}
+
+function testURL($URL)
+{
+   if (filter_var($URL, FILTER_VALIDATE_URL) === FALSE) {
+	    echo _("URL appears to be invalid")."\n";
+	    return FALSE;
+   }
+   return TRUE;
+   
 }
 
 
